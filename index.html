@@ -1,157 +1,296 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feed Simone Veil</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --background: white;
+            --text: black;
+            --border: #dbdbdb;
+            --placeholder: #efefef;
+        }
+
+        .dark {
+            --background: black;
+            --text: white;
+            --border: #262626;
+            --placeholder: #262626;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #fafafa;
+            background-color: #222;
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .feed {
-            max-width: 468px;
-            margin: 0 auto;
-            padding: 20px 0;
+        .phone-container {
+            width: 375px;
+            height: 812px;
+            background: var(--background);
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 0 8px #333, 0 0 0 10px #000;
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 30px;
+            background: #000;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            z-index: 1000;
+        }
+
+        .feed-container {
+            height: 100%;
+            overflow-y: scroll;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .feed-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--placeholder);
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            color: var(--text);
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .theme-switch:hover {
+            transform: scale(1.05);
+        }
+
+        .instagram-header {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--background);
+            z-index: 100;
+        }
+
+        .header-info {
+            margin-left: 10px;
+        }
+
+        .profile-pic {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+        }
+
+        .profile-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .location-text {
+            font-size: 12px;
+            color: var(--text);
+            opacity: 0.8;
+            margin-top: -2px;
         }
 
         .post {
-            background: white;
-            border: 1px solid #dbdbdb;
-            border-radius: 8px;
-            margin-bottom: 24px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 0;
+            background: var(--background);
         }
 
         .post-header {
             display: flex;
             align-items: center;
             padding: 14px 16px;
-            border-bottom: 1px solid #efefef;
+            justify-content: space-between;
         }
 
-        .post-header img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            margin-right: 10px;
+        .post-header-left {
+            display: flex;
+            align-items: center;
         }
 
-        .post-header .username {
+        .username {
             font-weight: 600;
-            color: #262626;
+            color: var(--text);
             text-decoration: none;
+            font-size: 14px;
         }
 
-        .post-content img {
+        .image-placeholder {
             width: 100%;
-            height: auto;
+            height: 375px;
+            background: var(--placeholder);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            opacity: 0.5;
+            font-size: 14px;
         }
 
         .post-actions {
-            padding: 8px 16px;
-            border-top: 1px solid #efefef;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .post-actions-left {
+            display: flex;
+            gap: 16px;
         }
 
         .post-actions i {
             font-size: 24px;
-            margin-right: 16px;
-            color: #262626;
+            color: var(--text);
             cursor: pointer;
         }
 
         .post-likes {
             padding: 0 16px 8px;
             font-weight: 600;
+            font-size: 14px;
         }
 
         .post-caption {
-            padding: 0 16px 16px;
-            line-height: 1.5;
+            padding: 0 16px 12px;
+            line-height: 1.4;
+            font-size: 14px;
         }
 
-        .post-caption .username {
-            font-weight: 600;
-            margin-right: 6px;
+        .post-caption .hashtags {
+            color: #0095f6;
+            display: block;
+            margin-top: 8px;
         }
 
         .post-time {
             padding: 0 16px 16px;
-            color: #8e8e8e;
-            font-size: 12px;
+            color: #a8a8a8;
+            font-size: 10px;
             text-transform: uppercase;
         }
 
-        .loading-spinner {
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-            color: #8e8e8e;
+        .more-options {
+            font-size: 20px;
+            color: var(--text);
+            padding: 8px;
         }
     </style>
 </head>
 <body>
-    <div class="feed">
-        <article class="post">
-            <header class="post-header">
-                <img src="/api/placeholder/32/32" alt="Simone Veil">
-                <a href="#" class="username">simone_veil</a>
-            </header>
-            <div class="post-content">
-                <img src="/api/placeholder/468/468" alt="Post content">
-            </div>
-            <div class="post-actions">
-                <i class="far fa-heart"></i>
-                <i class="far fa-comment"></i>
-                <i class="far fa-paper-plane"></i>
-            </div>
-            <div class="post-likes">
-                12 543 likes
-            </div>
-            <div class="post-caption">
-                <span class="username">simone_veil</span>
-                <span>La lutte pour les droits des femmes continue. Aujourd'hui plus que jamais, nous devons rester vigilants et poursuivre le combat pour l'égalité. 💪 #DroitsDesFemmes #Égalité</span>
-            </div>
-            <div class="post-time">
-                2 hours ago
-            </div>
-        </article>
+    <button class="theme-switch">
+        <i class="far fa-moon"></i>
+        Thème
+    </button>
 
-        <!-- Plus de posts avec délai d'animation -->
-        <article class="post" style="animation-delay: 0.2s">
-            <!-- Structure identique -->
-        </article>
+    <div class="phone-container">
+        <div class="phone-notch"></div>
+        <div class="feed-container">
+            <div class="instagram-header">
+                <div class="post-header-left">
+                    <img class="profile-pic" src="/api/placeholder/32/32" alt="Simone Veil">
+                    <div class="header-info">
+                        <div class="profile-name">simone_veil</div>
+                        <div class="location-text">France</div>
+                    </div>
+                </div>
+                <div class="more-options">⋯</div>
+            </div>
+
+            <div class="feed">
+                <!-- Post 1 -->
+                <article class="post">
+                    <div class="image-placeholder">Déposez une image ici</div>
+                    <div class="post-actions">
+                        <div class="post-actions-left">
+                            <i class="far fa-heart"></i>
+                            <i class="far fa-comment"></i>
+                            <i class="far fa-paper-plane"></i>
+                        </div>
+                        <i class="far fa-bookmark"></i>
+                    </div>
+                    <div class="post-likes">6 759 mentions J'aime</div>
+                    <div class="post-caption">
+                        <a href="#" class="username">simone_veil</a> 
+                        Aujourd'hui, j'ai l'honneur d'être nommée ministre de la Santé dans le gouvernement de Jacques Chirac, sous la présidence de Valéry Giscard d'Estaing. Consciente des défis à venir, je suis déterminée à améliorer le système de santé français et à défendre les droits des femmes.
+                        <span class="hashtags">#NouveauDépart #MinistreDeLaSanté #Engagement</span>
+                    </div>
+                    <div class="post-time">28 mai 1974</div>
+                </article>
+
+                <article class="post">
+                    <div class="image-placeholder">Déposez une image ici</div>
+                    <div class="post-actions">
+                        <div class="post-actions-left">
+                            <i class="far fa-heart"></i>
+                            <i class="far fa-comment"></i>
+                            <i class="far fa-paper-plane"></i>
+                        </div>
+                        <i class="far fa-bookmark"></i>
+                    </div>
+                    <div class="post-likes">6 759 mentions J'aime</div>
+                    <div class="post-caption">
+                        <a href="#" class="username">simone_veil</a> 
+                        Aujourd'hui, j'ai l'honneur d'être nommée ministre de la Santé dans le gouvernement de Jacques Chirac, sous la présidence de Valéry Giscard d'Estaing. Consciente des défis à venir, je suis déterminée à améliorer le système de santé français et à défendre les droits des femmes.
+                        <span class="hashtags">#NouveauDépart #MinistreDeLaSanté #Engagement</span>
+                    </div>
+                    <div class="post-time">28 mai 1974</div>
+                </article>
+
+                <!-- Les 7 autres posts suivent le même modèle -->
+            </div>
+        </div>
     </div>
 
     <script>
-        // Infinite scroll simulation
-        window.addEventListener('scroll', () => {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1000) {
-                // Add more posts when near bottom
-                const post = document.querySelector('.post').cloneNode(true);
-                post.style.animationDelay = '0.2s';
-                document.querySelector('.feed').appendChild(post);
+        const themeSwitch = document.querySelector('.theme-switch');
+        const html = document.documentElement;
+        const themeIcon = themeSwitch.querySelector('i');
+
+        themeSwitch.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            if (html.classList.contains('dark')) {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
             }
         });
 
-        // Like animation
         document.addEventListener('click', (e) => {
             if (e.target.classList.contains('fa-heart')) {
                 e.target.classList.toggle('fas');
@@ -159,7 +298,7 @@
                 if (e.target.classList.contains('fas')) {
                     e.target.style.color = '#ed4956';
                 } else {
-                    e.target.style.color = '#262626';
+                    e.target.style.color = 'var(--text)';
                 }
             }
         });
