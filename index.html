@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simone Veil | Instagram</title>
+    <title>Feed Simone Veil</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -17,129 +17,152 @@
             background-color: #fafafa;
         }
 
-        .header {
-            background: white;
-            border-bottom: 1px solid #dbdbdb;
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-        }
-
-        .profile {
-            max-width: 935px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 2rem;
-        }
-
-        .profile-pic {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: #eee;
-        }
-
-        .profile-info h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .stats {
-            display: flex;
-            gap: 2rem;
-            margin: 1rem 0;
-        }
-
         .feed {
-            max-width: 935px;
+            max-width: 468px;
             margin: 0 auto;
-            padding: 2rem 1rem;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
+            padding: 20px 0;
         }
 
         .post {
-            aspect-ratio: 1;
             background: white;
             border: 1px solid #dbdbdb;
-            position: relative;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s ease forwards;
         }
 
-        .post img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .post-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            border-bottom: 1px solid #efefef;
+        }
+
+        .post-header img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .post-header .username {
+            font-weight: 600;
+            color: #262626;
+            text-decoration: none;
+        }
+
+        .post-content img {
             width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.3);
-            color: white;
+            height: auto;
+        }
+
+        .post-actions {
+            padding: 8px 16px;
+            border-top: 1px solid #efefef;
+        }
+
+        .post-actions i {
+            font-size: 24px;
+            margin-right: 16px;
+            color: #262626;
+            cursor: pointer;
+        }
+
+        .post-likes {
+            padding: 0 16px 8px;
+            font-weight: 600;
+        }
+
+        .post-caption {
+            padding: 0 16px 16px;
+            line-height: 1.5;
+        }
+
+        .post-caption .username {
+            font-weight: 600;
+            margin-right: 6px;
+        }
+
+        .post-time {
+            padding: 0 16px 16px;
+            color: #8e8e8e;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .loading-spinner {
             display: flex;
             justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-
-        .post:hover .post-overlay {
-            opacity: 1;
-        }
-
-        @media (max-width: 768px) {
-            .profile {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .profile-pic {
-                margin: 0 auto;
-            }
-            
-            .feed {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            padding: 20px;
+            color: #8e8e8e;
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <i class="fab fa-instagram"></i> Instagram
-    </header>
-
-    <div class="profile">
-        <div class="profile-pic">
-            <img src="/api/placeholder/150/150" alt="Simone Veil">
-        </div>
-        <div class="profile-info">
-            <h2>simone_veil</h2>
-            <div class="stats">
-                <span><b>248</b> posts</span>
-                <span><b>1.2M</b> followers</span>
-                <span><b>142</b> following</span>
-            </div>
-            <p><b>Simone Veil</b></p>
-            <p>Femme politique française 🇫🇷</p>
-            <p>Académicienne et militante pour les droits des femmes</p>
-            <p>Survivante de la Shoah</p>
-        </div>
-    </div>
-
     <div class="feed">
-        <div class="post">
-            <img src="/api/placeholder/300/300" alt="Post">
-            <div class="post-overlay">
-                <span>♥️ 12,543 💬 234</span>
+        <article class="post">
+            <header class="post-header">
+                <img src="/api/placeholder/32/32" alt="Simone Veil">
+                <a href="#" class="username">simone_veil</a>
+            </header>
+            <div class="post-content">
+                <img src="/api/placeholder/468/468" alt="Post content">
             </div>
-        </div>
-        <!-- Répétez pour plus de posts -->
+            <div class="post-actions">
+                <i class="far fa-heart"></i>
+                <i class="far fa-comment"></i>
+                <i class="far fa-paper-plane"></i>
+            </div>
+            <div class="post-likes">
+                12 543 likes
+            </div>
+            <div class="post-caption">
+                <span class="username">simone_veil</span>
+                <span>La lutte pour les droits des femmes continue. Aujourd'hui plus que jamais, nous devons rester vigilants et poursuivre le combat pour l'égalité. 💪 #DroitsDesFemmes #Égalité</span>
+            </div>
+            <div class="post-time">
+                2 hours ago
+            </div>
+        </article>
+
+        <!-- Plus de posts avec délai d'animation -->
+        <article class="post" style="animation-delay: 0.2s">
+            <!-- Structure identique -->
+        </article>
     </div>
+
+    <script>
+        // Infinite scroll simulation
+        window.addEventListener('scroll', () => {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1000) {
+                // Add more posts when near bottom
+                const post = document.querySelector('.post').cloneNode(true);
+                post.style.animationDelay = '0.2s';
+                document.querySelector('.feed').appendChild(post);
+            }
+        });
+
+        // Like animation
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('fa-heart')) {
+                e.target.classList.toggle('fas');
+                e.target.classList.toggle('far');
+                if (e.target.classList.contains('fas')) {
+                    e.target.style.color = '#ed4956';
+                } else {
+                    e.target.style.color = '#262626';
+                }
+            }
+        });
+    </script>
 </body>
 </html>
