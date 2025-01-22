@@ -3,508 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram Clone</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #fafafa;
-            color: #262626;
-        }
-
-        button {
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background-color: #0095f6;
-            color: white;
-            padding: 5px 9px;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .btn-primary:hover {
-            background-color: #1877f2;
-        }
-
-        /* Stories */
-        .stories {
-            background: white;
-            border: 1px solid #dbdbdb;
-            border-radius: 3px;
-            margin-bottom: 24px;
-            padding: 16px 0;
-            overflow-x: auto;
-            display: flex;
-            gap: 12px;
-            scrollbar-width: none;
-        }
-
-        .stories::-webkit-scrollbar {
-            display: none;
-        }
-
-        .story {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 80px;
-            font-size: 12px;
-        }
-
-        .story-avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            padding: 3px;
-            background: linear-gradient(45deg, #ffa95f, #f99c4a, #f95245, #f95245, #fd5949, #d6249f, #285AEB);
-            margin-bottom: 8px;
-        }
-
-        .story-avatar img {
-            border: 2px solid white;
-            border-radius: 50%;
-            width: 100%;
-            height: 100%;
-        }
-
-        .story-username {
-            color: #262626;
-            text-align: center;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            width: 100%;
-            padding: 0 4px;
-        }
-
-        /* Navigation */
-        nav {
-            background-color: white;
-            border-bottom: 1px solid #dbdbdb;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-container {
-            max-width: 975px;
-            margin: 0 auto;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 25px;
-            font-weight: bold;
-            color: #262626;
-            text-decoration: none;
-        }
-
-        .nav-items {
-            display: flex;
-            gap: 22px;
-        }
-
-        .nav-items i {
-            font-size: 22px;
-            color: #262626;
-            cursor: pointer;
-        }
-
-        /* Main Content */
-        .main-container {
-            max-width: 975px;
-            margin: 80px auto 0;
-            padding: 0 20px;
-            display: flex;
-        }
-
-        /* Posts Feed */
-        .posts-container {
-            flex: 2;
-            max-width: 614px;
-        }
-
-        .post {
-            background-color: white;
-            border: 1px solid #dbdbdb;
-            border-radius: 3px;
-            margin-bottom: 24px;
-        }
-
-        .post-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 16px;
-        }
-
-        .post-header-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .post-header img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-        }
-
-        .post-header .username {
-            font-weight: 600;
-            color: #262626;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .post-more {
-            color: #262626;
-            font-size: 14px;
-        }
-
-        .post-more:hover {
-            color: #8e8e8e;
-        }
-
-        .post-image {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-        }
-
-        .post-actions {
-            padding: 6px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .post-actions-left {
-            display: flex;
-            gap: 16px;
-        }
-
-        .post-actions i {
-            font-size: 24px;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        .post-actions i:hover {
-            opacity: 0.7;
-        }
-
-        .post-likes {
-            padding: 0 16px 8px;
-            font-weight: 600;
-            color: #262626;
-            font-size: 14px;
-        }
-
-        .post-caption {
-            padding: 0 16px 8px;
-            line-height: 1.4;
-            font-size: 14px;
-        }
-
-        .post-comments {
-            padding: 0 16px 12px;
-            color: #8e8e8e;
-            font-size: 14px;
-        }
-
-        .post-time {
-            padding: 0 16px 16px;
-            color: #8e8e8e;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.2px;
-        }
-
-        .post-add-comment {
-            display: flex;
-            align-items: center;
-            padding: 16px;
-            border-top: 1px solid #efefef;
-        }
-
-        .post-add-comment textarea {
-            border: none;
-            resize: none;
-            flex-grow: 1;
-            height: 18px;
-            font-size: 14px;
-            padding: 0;
-            margin-right: 16px;
-        }
-
-        .post-add-comment textarea::placeholder {
-            color: #8e8e8e;
-        }
-
-        .post-add-comment textarea:focus {
-            outline: none;
-        }
-
-        .post-caption .username {
-            font-weight: 600;
-            margin-right: 6px;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            flex: 1;
-            margin-left: 28px;
-            position: fixed;
-            right: calc((100% - 975px) / 2);
-            width: 293px;
-        }
-
-        .profile-card {
-            display: flex;
-            align-items: center;
-            margin: 18px 0 10px;
-            padding: 0 16px;
-        }
-
-        .profile-card img {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            margin-right: 12px;
-        }
-
-        .profile-info {
-            flex-grow: 1;
-        }
-
-        .profile-info .name {
-            color: #8e8e8e;
-            font-size: 14px;
-        }
-
-        .profile-info .username {
-            font-weight: 600;
-            color: #262626;
-            text-decoration: none;
-            font-size: 14px;
-            display: block;
-            margin-bottom: 2px;
-        }
-
-        .suggestions {
-            padding: 4px 16px;
-        }
-
-        .suggestions-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .suggestions-header h2 {
-            font-size: 14px;
-            color: #8e8e8e;
-            font-weight: 600;
-        }
-
-        .suggestions-header a {
-            font-size: 12px;
-            color: #262626;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .suggestion-card {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
-            padding: 8px 0;
-        }
-
-        .suggestion-card img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            margin-right: 12px;
-        }
-
-        .suggestion-info {
-            flex-grow: 1;
-        }
-
-        .suggestion-info .username {
-            font-size: 14px;
-            font-weight: 600;
-            color: #262626;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 2px;
-        }
-
-        .suggestion-info .follow-status {
-            font-size: 12px;
-            color: #8e8e8e;
-        }
-
-        .sidebar-links {
-            padding: 24px 16px;
-            font-size: 11px;
-            color: #c7c7c7;
-        }
-
-        .sidebar-links a {
-            color: #c7c7c7;
-            text-decoration: none;
-            margin-right: 8px;
-        }
-
-        .sidebar-copyright {
-            color: #c7c7c7;
-            font-size: 11px;
-            text-transform: uppercase;
-            margin-top: 16px;
-        }
-
-        @media (max-width: 1000px) {
-            .sidebar {
-                display: none;
-            }
-        }
-
-        @media (max-width: 614px) {
-            .posts-container {
-                margin: 0 -20px;
-            }
-            
-            .post {
-                border-left: none;
-                border-right: none;
-            }
-        }
-    </style>
+    <title>Simone Veil (@simone_veil) • Instagram</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="logo">Instagram</a>
+    <nav class="navbar">
+        <div class="nav-wrapper">
+            <img src="images/instagram-logo.png" alt="Instagram" class="brand-img">
             <div class="nav-items">
-                <i class="fas fa-home"></i>
-                <i class="far fa-paper-plane"></i>
-                <i class="far fa-compass"></i>
-                <i class="far fa-heart"></i>
-                <img src="/api/placeholder/24/24" alt="Profile" style="width: 24px; height: 24px; border-radius: 50%;">
+                <img src="images/profile.jpg" alt="Profile" class="nav-profile">
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="main-container">
-        <!-- Posts Feed -->
-        <div class="posts-container">
-            <!-- Post 1 -->
-            <section class="stories">
-                <div class="story">
-                    <div class="story-avatar">
-                        <img src="/api/placeholder/50/50" alt="Story 1">
-                    </div>
-                    <span class="story-username">histoire1</span>
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-image">
+                <img src="images/profile.jpg" alt="Simone Veil">
+            </div>
+            <div class="profile-info">
+                <div class="profile-meta">
+                    <h2>simone_veil</h2>
+                    <button class="follow-btn">Suivre</button>
+                    <button class="more-btn">•••</button>
                 </div>
-                <div class="story">
-                    <div class="story-avatar">
-                        <img src="/api/placeholder/50/50" alt="Story 2">
-                    </div>
-                    <span class="story-username">histoire2</span>
+                <div class="profile-stats">
+                    <span><strong>325</strong> publications</span>
+                    <span><strong>892k</strong> abonnés</span>
+                    <span><strong>267</strong> abonnements</span>
                 </div>
-                <div class="story">
-                    <div class="story-avatar">
-                        <img src="/api/placeholder/50/50" alt="Story 3">
-                    </div>
-                    <span class="story-username">histoire3</span>
-                </div>
-            </section>
-
-            <article class="post">
-                <header class="post-header">
-                    <div class="post-header-left">
-                        <img src="/api/placeholder/32/32" alt="User avatar">
-                        <a href="#" class="username">utilisateur1</a>
-                    </div>
-                    <button class="post-more">
-                        <i class="fas fa-ellipsis-h"></i>
-                    </button>
-                </header>
-                <img src="/api/placeholder/614/614" alt="Post image" class="post-image">
-                <div class="post-actions">
-                    <div class="post-actions-left">
-                        <button><i class="far fa-heart"></i></button>
-                        <button><i class="far fa-comment"></i></button>
-                        <button><i class="far fa-paper-plane"></i></button>
-                    </div>
-                    <button><i class="far fa-bookmark"></i></button>
-                </div>
-                <div class="post-likes">1,234 j'aime</div>
-                <div class="post-caption">
-                    <span class="username">utilisateur1</span>
-                    Belle journée à la plage! 🌊☀️ #été #vacances
-                </div>
-                <div class="post-comments">
-                    Voir les 48 commentaires
-                </div>
-                <div class="post-time">IL Y A 2 HEURES</div>
-                <div class="post-add-comment">
-                    <textarea placeholder="Ajouter un commentaire..."></textarea>
-                    <button class="btn-primary" disabled style="opacity: 0.3;">Publier</button>
-                </div>
-            </article>
-
-            <!-- Post 2 -->
-            <article class="post">
-                <header class="post-header">
-                    <img src="/api/placeholder/32/32" alt="User avatar">
-                    <a href="#" class="username">utilisateur2</a>
-                </header>
-                <img src="/api/placeholder/614/614" alt="Post image" class="post-image">
-                <div class="post-actions">
-                    <i class="far fa-heart"></i>
-                    <i class="far fa-comment"></i>
-                    <i class="far fa-paper-plane"></i>
-                </div>
-                <div class="post-likes">856 j'aime</div>
-                <div class="post-caption">
-                    <span class="username">utilisateur2</span>
-                    Déjeuner parfait! 🍜 #food #instafood
-                </div>
-            </article>
-        </div>
-
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="profile-card">
-                <img src="/api/placeholder/56/56" alt="Your profile picture">
-                <div class="profile-info">
-                    <a href="#" class="username">votre_pseudo</a>
-                    <div class="name">Votre Nom</div>
+                <div class="profile-bio">
+                    <h1>Simone Veil 🇫🇷</h1>
+                    <p>Femme politique française<br>
+                    Académicienne et militante des droits des femmes<br>
+                    Entrée au Panthéon en 2018<br>
+                    📍 Paris, France</p>
                 </div>
             </div>
-        </aside>
+        </div>
+
+        <div class="profile-tabs">
+            <button class="tab active"><span class="icon grid-icon"></span>PUBLICATIONS</button>
+            <button class="tab"><span class="icon saved-icon"></span>ENREGISTRÉES</button>
+            <button class="tab"><span class="icon tagged-icon"></span>IDENTIFIÉE</button>
+        </div>
+
+        <div class="posts-grid"></div>
     </div>
+
+    <div class="modal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-content">
+            <div class="modal-image">
+                <button class="nav-btn prev">←</button>
+                <img src="" alt="Post">
+                <button class="nav-btn next">→</button>
+            </div>
+            <div class="modal-info">
+                <div class="modal-header">
+                    <img src="images/profile.jpg" alt="Profile">
+                    <span class="username">simone_veil</span>
+                </div>
+                <div class="modal-comments"></div>
+                <div class="modal-actions">
+                    <div class="action-buttons">
+                        <button class="like-btn">❤️</button>
+                        <button class="comment-btn">💬</button>
+                        <button class="share-btn">📤</button>
+                        <button class="save-btn">🔖</button>
+                    </div>
+                    <div class="likes-count"></div>
+                    <div class="post-date"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
