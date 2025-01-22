@@ -3,82 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simone Veil (@simone_veil) • Instagram</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Simone Veil | Instagram</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #fafafa;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #dbdbdb;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+        }
+
+        .profile {
+            max-width: 935px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: #eee;
+        }
+
+        .profile-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stats {
+            display: flex;
+            gap: 2rem;
+            margin: 1rem 0;
+        }
+
+        .feed {
+            max-width: 935px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .post {
+            aspect-ratio: 1;
+            background: white;
+            border: 1px solid #dbdbdb;
+            position: relative;
+        }
+
+        .post img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .post-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .post:hover .post-overlay {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .profile {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .profile-pic {
+                margin: 0 auto;
+            }
+            
+            .feed {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-wrapper">
-            <img src="images/instagram-logo.png" alt="Instagram" class="brand-img">
-            <div class="nav-items">
-                <img src="images/profile.jpg" alt="Profile" class="nav-profile">
-            </div>
+    <header class="header">
+        <i class="fab fa-instagram"></i> Instagram
+    </header>
+
+    <div class="profile">
+        <div class="profile-pic">
+            <img src="/api/placeholder/150/150" alt="Simone Veil">
         </div>
-    </nav>
-
-    <div class="profile-container">
-        <div class="profile-header">
-            <div class="profile-image">
-                <img src="images/profile.jpg" alt="Simone Veil">
+        <div class="profile-info">
+            <h2>simone_veil</h2>
+            <div class="stats">
+                <span><b>248</b> posts</span>
+                <span><b>1.2M</b> followers</span>
+                <span><b>142</b> following</span>
             </div>
-            <div class="profile-info">
-                <div class="profile-meta">
-                    <h2>simone_veil</h2>
-                    <button class="follow-btn">Suivre</button>
-                    <button class="more-btn">•••</button>
-                </div>
-                <div class="profile-stats">
-                    <span><strong>325</strong> publications</span>
-                    <span><strong>892k</strong> abonnés</span>
-                    <span><strong>267</strong> abonnements</span>
-                </div>
-                <div class="profile-bio">
-                    <h1>Simone Veil 🇫🇷</h1>
-                    <p>Femme politique française<br>
-                    Académicienne et militante des droits des femmes<br>
-                    Entrée au Panthéon en 2018<br>
-                    📍 Paris, France</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="profile-tabs">
-            <button class="tab active"><span class="icon grid-icon"></span>PUBLICATIONS</button>
-            <button class="tab"><span class="icon saved-icon"></span>ENREGISTRÉES</button>
-            <button class="tab"><span class="icon tagged-icon"></span>IDENTIFIÉE</button>
-        </div>
-
-        <div class="posts-grid"></div>
-    </div>
-
-    <div class="modal">
-        <span class="close-modal">&times;</span>
-        <div class="modal-content">
-            <div class="modal-image">
-                <button class="nav-btn prev">←</button>
-                <img src="" alt="Post">
-                <button class="nav-btn next">→</button>
-            </div>
-            <div class="modal-info">
-                <div class="modal-header">
-                    <img src="images/profile.jpg" alt="Profile">
-                    <span class="username">simone_veil</span>
-                </div>
-                <div class="modal-comments"></div>
-                <div class="modal-actions">
-                    <div class="action-buttons">
-                        <button class="like-btn">❤️</button>
-                        <button class="comment-btn">💬</button>
-                        <button class="share-btn">📤</button>
-                        <button class="save-btn">🔖</button>
-                    </div>
-                    <div class="likes-count"></div>
-                    <div class="post-date"></div>
-                </div>
-            </div>
+            <p><b>Simone Veil</b></p>
+            <p>Femme politique française 🇫🇷</p>
+            <p>Académicienne et militante pour les droits des femmes</p>
+            <p>Survivante de la Shoah</p>
         </div>
     </div>
 
-    <script src="js/main.js"></script>
+    <div class="feed">
+        <div class="post">
+            <img src="/api/placeholder/300/300" alt="Post">
+            <div class="post-overlay">
+                <span>♥️ 12,543 💬 234</span>
+            </div>
+        </div>
+        <!-- Répétez pour plus de posts -->
+    </div>
 </body>
 </html>
